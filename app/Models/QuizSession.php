@@ -11,7 +11,12 @@ class QuizSession extends Model
         'code',
     ];
 
-    public function generateQuestion(): array
+    public function questions()
+    {
+        return $this->hasMany(QuizQuestion::class);
+    }
+
+    public function generateQuestion()
     {
         $question = [
             'flag' => null,
@@ -29,6 +34,6 @@ class QuizSession extends Model
                     $question['answer'] = $country->code;
                 }
             });
-        return $question;
+        return $this->questions()->create($question);
     }
 }
