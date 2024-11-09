@@ -2,24 +2,28 @@
 
 namespace App\Events;
 
+use App\Models\QuizSession;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class QuizResultsUpdated
+class QuizResultsUpdated implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    protected $session;
 
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public function __construct(QuizSession $session)
     {
         //
+        $this->session = $session;
     }
 
     /**
@@ -30,7 +34,12 @@ class QuizResultsUpdated
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('channel-name'),
+            new Channel(sprintf('App.Models.QuizSession.%s', $this->session->id)),
         ];
+    }
+
+    public function broadcastWith(): array
+    {
+        return $this->session->getUserResults();
     }
 }

@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Events\QuizQuestionCreated;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class QuizSession extends Model
 {
@@ -11,7 +14,17 @@ class QuizSession extends Model
         'code',
     ];
 
-    public function generateQuestion(): array
+    public function users(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'quiz_results');
+    }
+
+    public function questions(): HasMany
+    {
+        return $this->hasMany(QuizQuestion::class);
+    }
+
+    public function generateQuestion()
     {
         $question = [
             'flag' => null,
@@ -29,6 +42,21 @@ class QuizSession extends Model
                     $question['answer'] = $country->code;
                 }
             });
+        $question = $this->questions()->create($question);
         return $question;
+    }
+
+    public function getUserResults()
+    {
+        $users = $this->users()->withPivot(['score'])->get();
+        $results = [];
+        foreach ($users as $user) {
+            $results[] = [
+                'user_id' => $user->id,
+                'user_name' => $user->name,
+                'score' => $user->getOriginal('pivot_score'),
+            ];
+        }
+        return $results;
     }
 }
