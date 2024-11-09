@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\QuizQuestion;
 use Tests\TestCase;
 use App\Models\QuizSession; // Adjust the namespace as necessary
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -38,9 +39,9 @@ class QuizSessionTest extends TestCase
         ]);
 
         $question = $quizSession->generateQuestion();
-        $this->assertIsArray($question);
-        $this->assertNotEmpty($question['flag']);
-        $this->assertNotEmpty($question['answer']);
-        $this->assertNotEmpty($question['options']);
+        $this->assertInstanceOf(QuizQuestion::class, $question);
+        $this->assertNotEmpty($question->flag);
+        $this->assertNotEmpty($question->answer);
+        $this->assertNotEmpty($question->options);
     }
 } 
