@@ -2,9 +2,12 @@
 
 namespace Database\Seeders;
 
+use App\Models\QuizCountry;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Rinvex\Country\Country;
+use Rinvex\Country\CountryLoader;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,9 +18,13 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        collect(CountryLoader::countries(false, true))
+            ->each(function (Country $country) {
+                QuizCountry::create([
+                    'name' => $country->getName(),
+                    'code' => $country->getIsoAlpha3(),
+                    'flag' => $country->getFlag(),
+                ]);
+            });
     }
 }
