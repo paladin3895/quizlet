@@ -11,6 +11,7 @@
         "laravel/reverb": "^1.4",
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
+        "nubs/random-name-generator": "^2.2",
         "qirolab/laravel-themer": "^2.3",
         "rinvex/countries": "^9.0",
         "tightenco/ziggy": "^2.0"

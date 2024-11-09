@@ -7,7 +7,7 @@ import { ref } from 'vue';
 const sessionCode = ref('');
 const sessionName = ref('');
 
-const joinQuizSession = (event) => {
+async function joinQuizSession(event) {
     event.preventDefault();
     return axios.get('/quiz', {
         params: {
@@ -20,7 +20,7 @@ const joinQuizSession = (event) => {
     })
 };
 
-const createQuizSession = (event) => {
+async function createQuizSession(event) {
     event.preventDefault();
     return axios.post('/quiz', {
         name: sessionName.value,
@@ -51,7 +51,7 @@ const createQuizSession = (event) => {
                             <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Enter Quiz session code to
                                 join:</h3>
                             <form @submit="joinQuizSession" class="flex items-center space-x-4">
-                                <input v-model="sessionCode" type="text" placeholder="Enter text"
+                                <input v-model="sessionCode" type="text" placeholder="Code"
                                     class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                                 <button type="submit"
                                     class="px-4 py-2 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
@@ -62,7 +62,7 @@ const createQuizSession = (event) => {
                         <div class="p-6 text-gray-900">
                             <h3 class="text-lg font-medium leading-6 text-gray-900 mb-4">Or create new session:</h3>
                             <form @submit="createQuizSession" class="flex items-center space-x-4">
-                                <input v-model="sessionName" type="text" placeholder="Enter text"
+                                <input v-model="sessionName" type="text" placeholder="Enter session name"
                                     class="px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500" />
                                 <button type="submit"
                                     class="px-4 py-2 text-white bg-green-600 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">

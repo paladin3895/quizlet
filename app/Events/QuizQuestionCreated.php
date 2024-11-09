@@ -37,7 +37,7 @@ class QuizQuestionCreated implements ShouldBroadcastNow
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel(sprintf('App.Models.QuizSession.%s', $this->session->id)),
+            new Channel(sprintf('App.Models.QuizSession.%s', $this->session->id)),
         ];
     }
 }

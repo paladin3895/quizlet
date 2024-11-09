@@ -13,6 +13,10 @@ class QuizQuestion extends Model
         'flag',
     ];
 
+    public $hidden = [
+        'flag',
+    ];
+
     protected $casts = [
         'options' => 'array',
     ];
