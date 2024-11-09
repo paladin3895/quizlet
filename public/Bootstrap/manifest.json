@@ -1,0 +1,13 @@
+{
+  "themes/Bootstrap/js/app.js": {
+    "file": "assets/app-B812GnKN.js",
+    "name": "app",
+    "src": "themes/Bootstrap/js/app.js",
+    "isEntry": true
+  },
+  "themes/Bootstrap/sass/app.scss": {
+    "file": "assets/app-Duyj590Q.css",
+    "src": "themes/Bootstrap/sass/app.scss",
+    "isEntry": true
+  }
+}
