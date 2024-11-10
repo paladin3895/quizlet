@@ -84,15 +84,18 @@ requestNewQuestion();
 
 <template>
 
-    <Head title="Dashboard" />
+    <Head title="Quiz session" />
 
     <Layout>
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
-                Dashboard
+                Quiz session ID: {{ session.code }}
             </h2>
         </template>
 
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">
+            Quiz session ID: {{ session.code }}
+        </h2>
         <div class="grid grid-cols-3 gap-4 w-full">
             <div class="col-span-2 m-6 overflow-hidden bg-white px-6 py-4 shadow-md sm:rounded-lg">
                 <div class="py-4">
@@ -133,22 +136,16 @@ requestNewQuestion();
                 </div>
             </div>
             <div class="col-span-1 m-6 overflow-hidden bg-white px-6 py-4 shadow-md sm:rounded-lg">
-                <div class="py-4">
-                    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                        <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
-                            <div class="p-6 text-gray-900">
-                                <!-- User Scores -->
-                                <h2 class="text-xl font-semibold mb-4">User Scores</h2>
-                                <ul class="space-y-2">
-                                    <li v-for="result in getSortedResults(liveResults)" class="flex justify-between">
-                                        <span v-if="result.user_id == user.id" class="bg-green-500"><strong>{{ result.user_name }}</strong></span>
-                                        <span v-else>{{ result.user_name }}</span>
-                                        <span>{{ result.score }}</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <div class="text-gray-900">
+                    <!-- User Scores -->
+                    <h2 class="text-xl font-semibold mb-4">User Scores</h2>
+                    <ul class="space-y-2">
+                        <li v-for="result in getSortedResults(liveResults)" class="flex justify-between">
+                            <span v-if="result.user_id == user.id" class="bg-green-500"><strong>{{ result.user_name }}</strong></span>
+                            <span v-else>{{ result.user_name }}</span>
+                            <span>{{ result.score }}</span>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

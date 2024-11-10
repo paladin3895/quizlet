@@ -7,7 +7,7 @@ import { ref } from 'vue';
 const sessionCode = ref('');
 const sessionName = ref('');
 
-async function joinQuizSession(event) {
+function joinQuizSession(event) {
     event.preventDefault();
     return axios.get('/quiz', {
         params: {
@@ -18,9 +18,9 @@ async function joinQuizSession(event) {
     }).catch(err => {
         alert(err.response.data.message);
     })
-};
+}
 
-async function createQuizSession(event) {
+function createQuizSession(event) {
     event.preventDefault();
     return axios.post('/quiz', {
         name: sessionName.value,
@@ -29,7 +29,7 @@ async function createQuizSession(event) {
     }).catch(err => {
         alert(err.response.data.message);
     })
-};
+}
 </script>
 
 <template>
